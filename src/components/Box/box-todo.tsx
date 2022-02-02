@@ -2,18 +2,24 @@ import styled from 'styled-components'
 import { Row, ItemTodo, ButtonDelete } from '../../components'
 
 type Props = {
-    i: Array<string>;
+    list: Array<message>
+    delete: any
+}
+
+type message = {
+    id: number,
+    message: string
 }
 
 export function RenderTodo(props: Props): JSX.Element {
     return (
         <BoxTodo>
-            {props.i.map((item) => {
+            {props.list.map((item: message) => {
                 return (
-                    <Row>
-                    <ItemTodo>{item}
+                <Row key={item.id}>
+                    <ItemTodo>{item.id}. {item.message}
                     <ButtonDelete onClick={() => {
-                        alert('Failed to delete...')
+                        props.delete(item.id)
                     }}>X</ButtonDelete>
                     </ItemTodo>
                 </Row>
