@@ -7,7 +7,6 @@ type Props = {
 
 export const Text = styled.p<Props>`
   font-size: '15pt';
-  color: '#343434';
   text-align: ${(props) => (props.description ? 'justify-all' : 'left')};
   margin: ${(props) => (props.description ? '20px 0' : '0')};
 `;

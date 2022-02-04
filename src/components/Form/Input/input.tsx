@@ -5,7 +5,7 @@ export const Input = styled.input`
   padding: 10px;
   border: 2px solid ${(props) => props.theme.colors.border};
   border-radius: 10px;
-  color: '${(props) => props.theme.colors.text}' !important;
+  color: ${(props) => props.theme.colors.text};
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.2);

@@ -1,16 +1,19 @@
 import styled from 'styled-components';
-import { Input, Text, ButtonSend, TextArea, Column } from '../../components';
 
-// type Props = {
-//   setTitle(value: string): void;
-//   setTodo(value: string): void;
-//   handleAddTodo(): void;
-// };
+import {
+  Input,
+  Text,
+  Button,
+  TextArea,
+  Column,
+  Title,
+  SwitchGroup,
+} from '../../components';
 
 type Props = {
-  setTitle: any;
-  setTodo: any;
-  handleAddTodo: any;
+  setTitle(value: string): void;
+  setTodo(value: string): void;
+  handleAddTodo(): void;
 };
 
 export const Form = styled.div`
@@ -21,6 +24,10 @@ export const Form = styled.div`
 export function RenderForm(props: Props) {
   return (
     <Form>
+      <Title t>Adding new task</Title>
+      <Column>
+        <SwitchGroup />
+      </Column>
       <Column>
         <Text>Title</Text>
         <Input
@@ -48,13 +55,13 @@ export function RenderForm(props: Props) {
           }}
         />
       </Column>
-      <ButtonSend
+      <Button
         onClick={() => {
           props.handleAddTodo();
         }}
       >
         OK
-      </ButtonSend>
+      </Button>
     </Form>
   );
 }

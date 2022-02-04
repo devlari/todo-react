@@ -1,13 +1,19 @@
-export default {
+import { tag } from './tag';
+
+const themeDark = {
   title: 'dark',
 
   colors: {
     primary: '#63ADF2',
     secondary: '#7A8B99',
-    border: 'white',
+    border: '#5e5e5e',
 
     background: '#161616',
     backgrounditem: '#222',
-    text: 'white',
+    text: '#fff',
+
+    tag,
   },
 };
+
+export default themeDark;

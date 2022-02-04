@@ -7,6 +7,7 @@ export const TextArea = styled.textarea`
   border-radius: 10px;
   resize: none;
   height: 100px;
+  color: ${(props) => props.theme.colors.text};
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.2);

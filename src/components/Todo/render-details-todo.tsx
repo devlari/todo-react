@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { Text, Title, ButtonDelete } from '..';
-import { message } from '../../types';
+import { Text, Title, Button } from '..';
+import { task } from '../../types';
 
 type Props = {
-  todo: message;
+  todo: task;
   delete(id: number): void;
-  setShowModal(bool: boolean): void;
+  setShowModalDetails(bool: boolean): void;
 };
 
 export const DetailsTodo = styled.div`
   margin: 0 auto;
-  height: 50%;
+  max-height: 70%;
   background-color: ${(props) => props.theme.colors.backgrounditem};
   padding: 30px;
   border-radius: 10px;
@@ -19,7 +19,7 @@ export const DetailsTodo = styled.div`
   overflow-y: auto;
   max-width: 80%;
 
-  animation: animationBoxModal 1s;
+  animation: animationBoxModal 0.5s;
 
   @keyframes animationBoxModal {
     from {
@@ -38,17 +38,17 @@ export function RenderModalTodo(props: Props): JSX.Element {
     <DetailsTodo>
       <Title t>{props.todo.title}</Title>
       <Text description>
-        {props.todo.id}. {props.todo.message}
+        {props.todo.id}. {props.todo.task}
       </Text>
-      <ButtonDelete
+      <Button
         onClick={() => {
           props.delete(props.todo.id);
           alert('Deleted successfully!');
-          props.setShowModal(false);
+          props.setShowModalDetails(false);
         }}
       >
         Delete
-      </ButtonDelete>
+      </Button>
     </DetailsTodo>
   );
 }

@@ -12,6 +12,13 @@ declare module 'styled-components' {
       background: string
       backgrounditem: string
       text: string
+
+      tag: {
+        Study: string,
+        Work: string,
+        College: string,
+        Personal: string,
+      }
     }
   }
 }

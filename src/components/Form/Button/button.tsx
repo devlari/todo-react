@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-export const ButtonSend = styled.button`
-  /* display: inline-block; */
+type Props = {
+  plus?: boolean;
+};
+
+export const Button = styled.button`
   border-radius: 3px;
-  padding: 10px 0;
-  width: 5rem;
+  padding: ${(props: Props) => (props.plus ? '5px 10px' : '10px')};
   background: ${(props) => props.theme.colors.primary};
   color: white;
   transition: all 0.5s;

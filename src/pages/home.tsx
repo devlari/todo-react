@@ -6,20 +6,26 @@ import {
   Title,
   RenderModalTodo,
   BoxModal,
-  RenderForm,
+  Row,
+  Button,
 } from '../components';
-import { message } from '../types/message';
+import { RenderAddTodo } from '../components/Todo/render-add-todo';
+import { task, tag } from '../types';
 
 export const Home = () => {
   const [todo, setTodo] = React.useState('');
   const [title, setTitle] = React.useState('');
-  const [todoList, setTodoList] = React.useState<message[]>([]);
-  const [showModal, setShowModal] = React.useState(false);
-  const [todoDetail, setTodoDetail] = React.useState<message>({
+  const [tagTodo, setTagTodo] = React.useState<tag>('Work');
+  const [todoDetail, setTodoDetail] = React.useState<task>({
     id: 0,
     title: '',
-    message: '',
+    task: '',
+    tag: 'Work',
   });
+
+  const [todoList, setTodoList] = React.useState<task[]>([]);
+  const [showModalDetails, setShowModalDetails] = React.useState(false);
+  const [showModalAdd, setShowModalAdd] = React.useState(false);
 
   function toggleModal(id: number) {
     const result = todoList.filter((todo) => todo.id === id);
@@ -28,10 +34,15 @@ export const Home = () => {
     setTodoDetail({
       id: result[0].id,
       title: result[0].title,
-      message: result[0].message,
+      task: result[0].task,
+      tag: 'Work',
     });
 
-    setShowModal(!showModal);
+    setShowModalDetails(!showModalDetails);
+  }
+
+  function toggleModalAdd() {
+    setShowModalAdd(!showModalAdd);
   }
 
   // useEffect(() => {
@@ -42,13 +53,15 @@ export const Home = () => {
     if (todo.trim() === '' || title.trim() === '') {
       alert('Please insert something in both values...');
     } else {
-      const newMessage: message = {
+      const newtask: task = {
         id: todoList.length + 1,
         title,
-        message: todo,
+        task: todo,
+        tag: 'Work',
       };
-
-      setTodoList([...todoList, newMessage]);
+      alert('Task added successfully!');
+      setTodoList([...todoList, newtask]);
+      setShowModalAdd(false);
     }
   }
 
@@ -67,28 +80,49 @@ export const Home = () => {
     <>
       <Container>
         <Box>
-          <Title t>Todo List</Title>
-          <RenderForm
-            setTitle={setTitle}
-            setTodo={setTodo}
-            handleAddTodo={handleAddTodo}
-          />
+          <Title t>To-do List</Title>
+          <Row>
+            <Button
+              onClick={() => {
+                toggleModalAdd();
+              }}
+            >
+              Add new task
+            </Button>
+          </Row>
           <RenderTodo toggleModal={toggleModal} list={todoList} />
         </Box>
-        {showModal && (
+        {showModalDetails && (
           <BoxModal
             className='backgroundModal'
             onClick={(e) => {
               let background = document.querySelector('.backgroundModal');
               if (e.target === background) {
-                setShowModal(false);
+                setShowModalDetails(false);
               }
             }}
           >
             <RenderModalTodo
-              setShowModal={setShowModal}
+              setShowModalDetails={setShowModalDetails}
               delete={handleDeleteTodo}
               todo={todoDetail}
+            />
+          </BoxModal>
+        )}
+        {showModalAdd && (
+          <BoxModal
+            className='backgroundModal'
+            onClick={(e) => {
+              let background = document.querySelector('.backgroundModal');
+              if (e.target === background) {
+                setShowModalDetails(false);
+              }
+            }}
+          >
+            <RenderAddTodo
+              setTitle={setTitle}
+              setTodo={setTodo}
+              handleAddTodo={handleAddTodo}
             />
           </BoxModal>
         )}
