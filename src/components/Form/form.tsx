@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+// import { tag } from '../../types/index';
 
 import {
   Input,
@@ -13,6 +14,7 @@ import {
 type Props = {
   setTitle(value: string): void;
   setTodo(value: string): void;
+  setTagTodo(value: string): void;
   handleAddTodo(): void;
 };
 
@@ -26,7 +28,7 @@ export function RenderForm(props: Props) {
     <Form>
       <Title t>Adding new task</Title>
       <Column>
-        <SwitchGroup />
+        <SwitchGroup setTagTodo={props.setTagTodo} />
       </Column>
       <Column>
         <Text>Title</Text>

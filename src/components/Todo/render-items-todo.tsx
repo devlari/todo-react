@@ -50,6 +50,7 @@ export function RenderTodo(props: Props): JSX.Element {
               }}
             >
               <Title subt>{item.title}</Title>
+              <Text>{item.tag}</Text>
               <Text description>
                 {item.id}. {item.task}
               </Text>

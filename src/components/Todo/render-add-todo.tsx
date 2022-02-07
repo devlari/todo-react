@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { RenderForm } from '../Form/form';
+// import { tag } from '../../types/index';
 
 type Props = {
+  setTagTodo(value: string): void;
   setTitle(value: string): void;
   setTodo(value: string): void;
   handleAddTodo(): void;
@@ -38,6 +40,7 @@ export function RenderAddTodo(props: Props): JSX.Element {
         setTitle={props.setTitle}
         setTodo={props.setTodo}
         handleAddTodo={props.handleAddTodo}
+        setTagTodo={props.setTagTodo}
       />
     </AddTodo>
   );

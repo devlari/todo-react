@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   RenderTodo,
   Container,
@@ -10,22 +10,40 @@ import {
   Button,
 } from '../components';
 import { RenderAddTodo } from '../components/Todo/render-add-todo';
-import { task, tag } from '../types';
+import { tag } from '../styles/themes/tag';
+import { task } from '../types';
+import { createClient } from '@supabase/supabase-js';
 
 export const Home = () => {
   const [todo, setTodo] = React.useState('');
   const [title, setTitle] = React.useState('');
-  const [tagTodo, setTagTodo] = React.useState<tag>('Work');
+  const [tagTodo, setTagTodo] = React.useState('');
   const [todoDetail, setTodoDetail] = React.useState<task>({
     id: 0,
     title: '',
     task: '',
-    tag: 'Work',
+    tag: '',
   });
 
   const [todoList, setTodoList] = React.useState<task[]>([]);
   const [showModalDetails, setShowModalDetails] = React.useState(false);
   const [showModalAdd, setShowModalAdd] = React.useState(false);
+
+  // useEffect(() => {
+  //   const url = process.env.REACT_APP_SUPABASE_URL;
+  //   const key = process.env.REACT_APP_SUPABASE_ANON_KEY;
+  //   let SupabaseClient = '';
+  //   SupabaseClient = createClient(url, key);
+  // }, []);
+
+  // React.useEffect(() => {
+  //   const todoList = SupabaseClient.from('mensagens')
+  //     .select('*')
+  //     .order('id', { ascending: false })
+  //     .then(({ data }) => {
+  //       setTodoList(data);
+  //     });
+  // }, [lista]);
 
   function toggleModal(id: number) {
     const result = todoList.filter((todo) => todo.id === id);
@@ -50,17 +68,22 @@ export const Home = () => {
   // }, [todoList]);
 
   function handleAddTodo() {
-    if (todo.trim() === '' || title.trim() === '') {
-      alert('Please insert something in both values...');
+    if (todo.trim() === '' || title.trim() === '' || tagTodo.trim() === '') {
+      alert('Please insert something in the values...');
     } else {
       const newtask: task = {
         id: todoList.length + 1,
         title,
         task: todo,
-        tag: 'Work',
+        tag: tagTodo,
       };
       alert('Task added successfully!');
       setTodoList([...todoList, newtask]);
+
+      setTodo('');
+      setTitle('');
+      setTagTodo('');
+
       setShowModalAdd(false);
     }
   }
@@ -120,6 +143,7 @@ export const Home = () => {
             }}
           >
             <RenderAddTodo
+              setTagTodo={setTagTodo}
               setTitle={setTitle}
               setTodo={setTodo}
               handleAddTodo={handleAddTodo}

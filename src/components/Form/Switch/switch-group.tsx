@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Row } from '../../../components';
+
+type Props = {
+  setTagTodo(value: string): void;
+};
 
 export const RadioOptions = styled.div`
   display: inline-flex;
@@ -8,21 +12,21 @@ export const RadioOptions = styled.div`
   border-radius: 10px;
   border: 2px solid ${(props) => props.theme.colors.border};
 
-  .item-work:hover {
+  .item-work:hover,
+  #Work:checked + label {
     background-color: ${(props) => props.theme.colors.tag.Work};
   }
-  .item-college:hover {
+  .item-college:hover,
+  #College:checked + label {
     background-color: ${(props) => props.theme.colors.tag.College};
   }
-  .item-study:hover {
+  .item-study:hover,
+  #Study:checked + label {
     background-color: ${(props) => props.theme.colors.tag.Study};
   }
-  .item-personal:hover {
+  .item-personal:hover,
+  #Personal:checked + label {
     background-color: ${(props) => props.theme.colors.tag.Personal};
-  }
-
-  .selected {
-    background-color: ${(props) => props.theme.colors.tag};
   }
 `;
 
@@ -35,22 +39,20 @@ export const Options = styled.label`
   cursor: pointer;
 `;
 
-export function SwitchGroup() {
-  const [tagAdd, setTagAdd] = React.useState('');
-
+export function SwitchGroup(props: Props) {
   // useState(() => {
   //   console.log(tagStudy, tagPersonal, tagCollege, tagWork);
   // });
 
   function handleRadio(value: string) {
-    setTagAdd(value);
+    props.setTagTodo(value);
   }
 
-  useEffect(() => {
-    console.log(tagAdd);
-    if (tagAdd === 'Study') {
-    }
-  }, [tagAdd]);
+  // useEffect(() => {
+  //   console.log(tagAdd);
+  //   if (tagAdd === 'Study') {
+  //   }
+  // }, [tagAdd]);
 
   return (
     <Row>
@@ -64,7 +66,7 @@ export function SwitchGroup() {
             handleRadio(e.target.value);
           }}
         />
-        <Options className='radio-label item-work' htmlFor='Work'>
+        <Options id='work' className='radio-label item-work' htmlFor='Work'>
           Work
         </Options>
         <Radio
